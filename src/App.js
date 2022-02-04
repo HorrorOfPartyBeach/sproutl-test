@@ -24,11 +24,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">Sproutl Blog</header>
-      <main>
+      <section className="container mx-auto px-4">
         {posts.map((post) => {
-          return <div key={post.id}>{post.title}</div>;
+          return (
+            <div key={post.id} className="text-3xl font-bold underline">
+              {post.title}
+            </div>
+          );
         })}
-      </main>
+      </section>
     </div>
   );
 }

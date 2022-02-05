@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Fragment } from "react/cjs/react.production.min";
 
 const CommentCard = ({ currentPostId }) => {
   const [comments, setComments] = useState([]);
-  console.log(comments, "CURRENT");
 
   useEffect(() => {
     const url = `https://jsonplaceholder.typicode.com/comments?postId=${currentPostId}`;
@@ -12,7 +10,6 @@ const CommentCard = ({ currentPostId }) => {
       try {
         const response = await fetch(url);
         const json = await response.json();
-        //console.log(json, "JSON");
         setComments(json);
       } catch (error) {
         console.log("error", error);
@@ -23,14 +20,14 @@ const CommentCard = ({ currentPostId }) => {
   }, [currentPostId]);
 
   return (
-    <div className="px-4">
+    <div className="divide-y divide-solid">
       {comments.map((comment) => {
         return (
-          <Fragment>
+          <div key={comment.id} className="py-4 px-2">
             <p>Name: {comment.name}</p>
             <p>Email: {comment.email}</p>
             <p>Message: {comment.body}</p>
-          </Fragment>
+          </div>
         );
       })}
     </div>

@@ -10,7 +10,7 @@ function App() {
 
   const toggleCardState = (cardIndex) => {
     setSelectedCard(selectedCard === cardIndex ? -1 : cardIndex);
-    setCardIsOpen(!cardIsOpen);
+    setCardIsOpen(!cardIsOpen[selectedCard]);
   };
 
   useEffect(() => {
@@ -20,7 +20,6 @@ function App() {
       try {
         const response = await fetch(url);
         const json = await response.json();
-        //console.log(json, "JSON");
         setPosts(json);
       } catch (error) {
         console.log("error", error);

@@ -41,6 +41,8 @@ function App() {
                   {post.title}
                   <Button
                     id={post.id}
+                    aria-expanded={cardIsOpen}
+                    aria-controls={`card-${post.id}`}
                     text={
                       cardIsOpen && selectedCard === post.id
                         ? "Close"
@@ -50,7 +52,12 @@ function App() {
                   />
                 </div>
                 {selectedCard === post.id && (
-                  <Card post={post} isOpen={cardIsOpen} />
+                  <Card
+                    cardId={`card-${post.id}`}
+                    aria-expanded={cardIsOpen}
+                    post={post}
+                    isOpen={cardIsOpen}
+                  />
                 )}
               </div>
             </Fragment>

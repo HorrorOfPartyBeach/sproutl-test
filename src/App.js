@@ -8,7 +8,7 @@ function App() {
   const [cardIsOpen, setCardIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(-1);
 
-  const toggleCardState = (e, cardIndex) => {
+  const toggleCardState = (cardIndex) => {
     setSelectedCard(selectedCard === cardIndex ? -1 : cardIndex);
     setCardIsOpen(!cardIsOpen);
   };
@@ -42,8 +42,12 @@ function App() {
                   {post.title}
                   <Button
                     id={post.id}
-                    text={cardIsOpen ? "Close" : "Read More"}
-                    onClick={(e) => toggleCardState(e, post.id)}
+                    text={
+                      cardIsOpen && selectedCard === post.id
+                        ? "Close"
+                        : "Read More"
+                    }
+                    onClick={() => toggleCardState(post.id)}
                   />
                 </div>
                 {selectedCard === post.id && (

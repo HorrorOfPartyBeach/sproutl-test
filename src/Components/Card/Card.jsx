@@ -1,8 +1,16 @@
 import React from "react";
+import CommentCard from "../CommentCard/CommentCard";
 
 const Card = ({ post, isOpen }) => {
-  const { body } = post;
-  return isOpen && <div className="px-4">{body}</div>;
+  const { id, body } = post;
+  return (
+    isOpen && (
+      <div className="px-4">
+        {body}
+        <CommentCard currentPostId={id} />
+      </div>
+    )
+  );
 };
 
 export default Card;

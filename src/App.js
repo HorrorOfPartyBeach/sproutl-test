@@ -1,8 +1,17 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import Card from "./Components/Card/Card";
+import Button from "./Components/Button/Button";
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const [cardIsOpen, setCardIsOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(-1);
+
+  const toggleCardState = (e, cardIndex) => {
+    setSelectedCard(selectedCard === cardIndex ? -1 : cardIndex);
+    setCardIsOpen(!cardIsOpen);
+  };
 
   useEffect(() => {
     const url = "https://jsonplaceholder.typicode.com/posts";
@@ -11,7 +20,7 @@ function App() {
       try {
         const response = await fetch(url);
         const json = await response.json();
-        console.log(json, "JSON");
+        //console.log(json, "JSON");
         setPosts(json);
       } catch (error) {
         console.log("error", error);
@@ -27,9 +36,21 @@ function App() {
       <section className="container mx-auto px-4">
         {posts.map((post) => {
           return (
-            <div key={post.id} className="text-3xl font-bold underline">
-              {post.title}
-            </div>
+            <Fragment key={post.id}>
+              <div className="shadow-md p-8 border m-4 rounded-md">
+                <div className="flex justify-between text-2xl">
+                  {post.title}
+                  <Button
+                    id={post.id}
+                    text={cardIsOpen ? "Close" : "Read More"}
+                    onClick={(e) => toggleCardState(e, post.id)}
+                  />
+                </div>
+                {selectedCard === post.id && (
+                  <Card post={post} isOpen={cardIsOpen} />
+                )}
+              </div>
+            </Fragment>
           );
         })}
       </section>
